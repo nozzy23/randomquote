@@ -1,9 +1,10 @@
 const spinner = document.querySelector("#js-spinner");
 
-
 const newQuoteButton = document.querySelector('#js-new-quote');
 
 newQuoteButton.addEventListener('click', getQuote);
+
+const twitterButton = document.querySelector('#js-tweet');
 
 //reference to the API
 const endPoint = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random';
@@ -27,6 +28,7 @@ async function getQuote() {
 we use await because the JSON method returns a promise */
         const json = await response.json();
         displayQuote(json.message);
+        setTweetButton(json.message);
     } catch (err){
         console.log(err)
         alert('failed to fetch quote');
@@ -41,4 +43,8 @@ we use await because the JSON method returns a promise */
 function displayQuote(quote){
     const quoteText = document.querySelector('#js-quote-text');
     quoteText.textContent = quote;
+}
+
+function setTweetButton(quote) {
+    twitterButton.setAttribute('href', `https://twitter.com/share?text=${quote} - Donald Trump`);
 }
