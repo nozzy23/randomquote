@@ -19,9 +19,14 @@ async function getQuote() {
 /*response.json method reads the body and parse the response as json
 we use await because the JSON method returns a promise */
         const json = await response.json();
-        console.log(json.message);
+        displayQuote(json.message);
     } catch (err){
         console.log(err)
         alert('failed to fetch quote');
     }
+}
+
+function displayQuote(quote){
+    const quoteText = document.querySelector('#js-quote-text');
+    quoteText.textContent = quote;
 }
